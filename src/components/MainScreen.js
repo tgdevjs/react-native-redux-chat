@@ -1,19 +1,27 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const MainScreen = () => (
-  			<View style={styles.container}>
-  				<View style={styles.titleContainer}>
-  					<Text style={styles.title}>AwesomeCo Support</Text>
-  				</View>
+class MainScreen extends Component{
+  render() {
+    return (
+			<View style={styles.container}>
+				<View style={styles.titleContainer}>
+					<Text style={styles.title}>AwesomeCo Support</Text>
+				</View>
 
-  				<View style={styles.buttonContainer}>
-  					<TouchableOpacity style={styles.button} onPress={() => console.log('onPress')}>
-  						<Text style={styles.buttonText}>Get Help</Text>
-  					</TouchableOpacity>
-  				</View>
-  			</View>
-  		);
+				<View style={styles.buttonContainer}>
+					<TouchableOpacity style={styles.button} onPress={this.props.getHelpPressHandler}>
+						<Text style={styles.buttonText}>Get Help</Text>
+					</TouchableOpacity>
+				</View>
+			</View>
+		);
+  }
+}
+
+MainScreen.propTypes = {
+  getHelpPressHandler: PropTypes.func.isRequired,
+}
 
 const styles = StyleSheet.create({
 	container: {
