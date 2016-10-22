@@ -1,8 +1,13 @@
 import React, { PropTypes} from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import { View, ScrollView, Text, TextInput,
+  StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 import MessageBubble from './MessageBubble';
+
+// ScrollView
+let scrollWindow
+let scrollHeight
 
 const ChatScreen = (props) => {
 
@@ -17,9 +22,20 @@ const ChatScreen = (props) => {
 
   return (
     <View behavior="padding" style={styles.container}>
-      <View style={styles.bubbleContainer}>
+      <ScrollView style={styles.bubbleContainer}
+        style={styles.bubbleContainer}
+        ref={scrollview => { scrollWindow = scrollview }}
+        onLayout={event => {
+          scrollHeight = event.nativeEvent.layout.height
+        }}
+        onContentSizeChange={(width, height) => {
+          if (scrollHeight < height) {
+            scrollWindow.scrollTo({ y: height - scrollHeight })
+          }
+        }}
+      >
         {bubbles}
-      </View>
+      </ScrollView>
       <View style={styles.messageBoxContainer}>
         <TextInput
           style={styles.messageBox}
