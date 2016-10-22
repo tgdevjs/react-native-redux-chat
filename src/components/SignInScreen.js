@@ -49,6 +49,8 @@ const SignInScreen = (props) => (
 SignInScreen.propTypes = {
 	name: PropTypes.string,
 	accountNumber: PropTypes.string,
+	onNameUpdate: PropTypes.func.isRequired,
+	onAccountNumberUpdate: PropTypes.func.isRequired,
 }
 
 function goPressHandler(navHandler, name, accountNum) {

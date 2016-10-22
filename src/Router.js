@@ -4,7 +4,7 @@ import { Navigator, StyleSheet, Platform, } from 'react-native';
 import routes from './routes';
 import NavBarRouteMapper from './components/NavBarRouteMapper';
 import MainScreen from './components/MainScreen';
-import SignInScreen from './components/SignInScreen';
+import SignInContainer from './containers/SignInContainer';
 
 
 class Router extends Component {
@@ -12,7 +12,7 @@ class Router extends Component {
   _renderScene(route, navigator) {
     switch (route.name) {
       case 'SignInScreen':
-        return <SignInScreen />
+        return <SignInContainer />
       case 'MainScreen':
       default:
         return <MainScreen
