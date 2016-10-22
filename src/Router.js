@@ -5,7 +5,7 @@ import routes from './routes';
 import NavBarRouteMapper from './components/NavBarRouteMapper';
 import MainScreen from './components/MainScreen';
 import SignInContainer from './containers/SignInContainer';
-import ChatScreen from './components/ChatScreen';
+import ChatContainer from './containers/ChatContainer';
 
 class Router extends Component {
 
@@ -14,7 +14,7 @@ class Router extends Component {
       case 'SignInScreen':
         return <SignInContainer />
       case 'ChatScreen':
-        return <ChatScreen />
+        return <ChatContainer />
       case 'MainScreen':
       default:
         return <MainScreen

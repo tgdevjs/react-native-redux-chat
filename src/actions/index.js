@@ -1,4 +1,9 @@
-import { UPDATE_NAME, UPDATE_ACCOUNT_NUMBER } from './types';
+import {
+  UPDATE_NAME,
+  UPDATE_ACCOUNT_NUMBER,
+  UPDATE_COMPOSE_MESSAGE,
+  SEND_MESSAGE,
+} from './types';
 
 export function updateName(name) {
   return {
@@ -11,5 +16,22 @@ export function updateAccountNumber (number) {
   return {
     type: UPDATE_ACCOUNT_NUMBER,
     number,
+  }
+}
+
+export function updateComposeMessage(message) {
+  return {
+    type: UPDATE_COMPOSE_MESSAGE,
+    message,
+  }
+}
+
+export function sendMessage(timestamp) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SEND_MESSAGE,
+      message: getState().composingMessage,
+      timestamp,
+    })
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes} from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
@@ -6,13 +6,13 @@ import MessageBubble from './MessageBubble';
 
 const ChatScreen = (props) => {
 
-  const messages = [
-    { isOwnMessage: false, message: 'Hi, I\'m Alice. How can I help you today?'},
-    { isOwnMessage: true, message: 'Hello Alice, I wanted to upgrade to the next tier of service.'},
-    { isOwnMessage: false, message: 'Sure thing! I can definitely help you out with that.'},
-  ];
+  // const messages = [
+  //   { isOwnMessage: false, message: 'Hi, I\'m Alice. How can I help you today?'},
+  //   { isOwnMessage: true, message: 'Hello Alice, I wanted to upgrade to the next tier of service.'},
+  //   { isOwnMessage: false, message: 'Sure thing! I can definitely help you out with that.'},
+  // ];
 
-  const bubbles = messages.map( (m, i) => <MessageBubble {...m} key={i} />);
+  const bubbles = props.messages.map( (m, i) => <MessageBubble {...m} key={i} />);
   const spacer = Platform.OS === 'ios' ? <KeyboardSpacer /> : null;
 
   return (
@@ -21,14 +21,27 @@ const ChatScreen = (props) => {
         {bubbles}
       </View>
       <View style={styles.messageBoxContainer}>
-        <TextInput style={styles.messageBox} />
-        <TouchableOpacity>
+        <TextInput
+          style={styles.messageBox}
+          value={props.composingMessage}
+          onChangeText={props.onComposeMessageUpdate}
+          onSubmitEditing={props.onSendMessage}
+          returnKeyType="send"
+        />
+        <TouchableOpacity onPress={props.onSendMessage}>
           <Text style={styles.sendButton}>Send</Text>
         </TouchableOpacity>
       </View>
       {spacer}
     </View>
   )
+}
+
+ChatScreen.propTypes = {
+  messages: PropTypes.array.isRequired,
+  composingMessage: PropTypes.string,
+  onComposeMessageUpdate: PropTypes.func.isRequired,
+  onSendMessage: PropTypes.func.isRequired,
 }
 
 const styles = StyleSheet.create({
