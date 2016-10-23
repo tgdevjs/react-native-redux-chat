@@ -4,6 +4,7 @@ import {
   UPDATE_ACCOUNT_NUMBER,
   UPDATE_COMPOSE_MESSAGE,
   SEND_MESSAGE,
+  RECEIVED_MESSAGE,
 } from '../actions/types';
 
 function name(state = '', action ) {
@@ -44,6 +45,11 @@ function messages(state = [], action) {
           timestamp: action.timestamp,
           isOwnMessage: true,
         }
+      ]
+    case RECEIVED_MESSAGE:
+      return [
+        ...state,
+        action.message,
       ]
     default:
       return state;
