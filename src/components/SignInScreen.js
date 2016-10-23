@@ -6,10 +6,9 @@ import {
 	TouchableOpacity,
 	Linking,
 	StyleSheet,
-} from 'react-native'
-
-// import { setCustomerInfo } from '../storageManager'
-
+  AsyncStorage,
+} from 'react-native';
+import { setCustomerInfo } from '../storageManager';
 
 const SignInScreen = (props) => (
 	<View style={styles.container}>
@@ -55,7 +54,12 @@ SignInScreen.propTypes = {
 }
 
 function goPressHandler(navHandler, name, accountNum) {
-  navHandler();
+  setCustomerInfo(name, accountNum)
+    .then(() => navHandler())
+    .catch(ex => {
+      console.log('Error storing customer name and account, proceeding anyway. Details: ', ex)
+      navHandler();
+    });
 }
 
 function openHelpPage() {
