@@ -1,13 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Navigator, StyleSheet, Platform, } from 'react-native';
 
-import routes from './routes';
-import NavBarRouteMapper from './components/NavBarRouteMapper';
-import MainScreen from './components/MainScreen';
-import SignInContainer from './containers/SignInContainer';
-import ChatContainer from './containers/ChatContainer';
+import routes from '../routes';
+import { getCustomerInfo } from '../storageManager';
+
+import NavBarRouteMapper from './NavBarRouteMapper';
+import MainScreen from './MainScreen';
+import SignInContainer from '../containers/SignInContainer';
+import ChatContainer from '../containers/ChatContainer';
+
 
 class Router extends Component {
+  componentDidMount() {
+    getCustomerInfo()
+      .then( data =>{
+        console.log('Going to restore from storage: ', data);
+        this.props.onRehydrateFromLocalStorage(data.name, data.accountNumber);
+      })
+  }
 
   _renderScene(route, navigator) {
     switch (route.name) {
@@ -39,6 +49,12 @@ class Router extends Component {
       />
     )
   }
+}
+
+Router.propTypes = {
+  name: PropTypes.string,
+  accountNumber: PropTypes.string,
+  onRehydrateFromLocalStorage: PropTypes.func.isRequired,
 }
 
 const styles = StyleSheet.create({

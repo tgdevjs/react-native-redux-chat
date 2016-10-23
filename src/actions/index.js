@@ -1,6 +1,7 @@
 import {
   UPDATE_NAME,
   UPDATE_ACCOUNT_NUMBER,
+  REHYDRATE_CUSTOMER_DETAILS,
   UPDATE_COMPOSE_MESSAGE,
   SEND_MESSAGE,
   RECEIVED_MESSAGE,
@@ -17,6 +18,14 @@ export function updateAccountNumber (number) {
   return {
     type: UPDATE_ACCOUNT_NUMBER,
     number,
+  }
+}
+
+export function rehydrateNameAndAccountNum(name, accountNumber) {
+  return {
+    type: REHYDRATE_CUSTOMER_DETAILS,
+    name,
+    number: accountNumber,
   }
 }
 
