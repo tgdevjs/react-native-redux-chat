@@ -51,10 +51,11 @@ SignInScreen.propTypes = {
 	accountNumber: PropTypes.string,
 	onNameUpdate: PropTypes.func.isRequired,
 	onAccountNumberUpdate: PropTypes.func.isRequired,
+  navHandler: PropTypes.func.isRequired,
 }
 
 function goPressHandler(navHandler, name, accountNum) {
-  console.log('goPressHandler');
+  navHandler();
 }
 
 function openHelpPage() {
