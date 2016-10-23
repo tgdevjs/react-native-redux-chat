@@ -11,11 +11,18 @@ import ChatContainer from '../containers/ChatContainer';
 
 
 class Router extends Component {
+  constructor(props) {
+    super(props)
+
+    this._renderScene = this._renderScene.bind(this);
+  }
   componentDidMount() {
     getCustomerInfo()
       .then( data =>{
-        console.log('Going to restore from storage: ', data);
-        this.props.onRehydrateFromLocalStorage(data.name, data.accountNumber);
+        if (data.name && data.accountNumber) {
+          console.log('Going to restore from storage: ', data);
+          this.props.onRehydrateFromLocalStorage(data.name, data.accountNumber);
+        }
       })
   }
 
@@ -27,6 +34,9 @@ class Router extends Component {
         return <ChatContainer />
       case 'MainScreen':
       default:
+        if (this.props.name.length && this.props.accountNumber.length) {
+          return <MainScreen getHelpPressHandler={() => navigator.push(routes.chat)} />
+        }
         return <MainScreen
           getHelpPressHandler={ () => {
             navigator.push(routes.signIn)
